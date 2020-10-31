@@ -1,0 +1,152 @@
+#include<iostream.h>
+#include<conio.h>
+#include<string.h>
+#include<stdlib.h>
+
+class hotel
+{
+public:
+int roomno;
+char name[10];
+char address[10];
+char status[10];
+char phoneno[10];
+float price;
+char type[5];
+
+
+void init1(int n)
+{
+roomno=n;
+strcpy(type,"AC:");
+price=5000;
+strcpy(status,"available");
+}
+
+void init2(int n)
+{
+roomno=n;
+strcpy(type,"NAC:");
+price=3000;
+strcpy(status,"available");
+}
+
+void display()
+{
+cout<<"\nRoom.No="<<roomno;
+cout<<"\ttype="<<type;
+cout<<"\tprice="<<price;
+}
+
+void custdetails()
+{
+strcpy(status,"Booked");
+cout<<"\nEnter Name:";
+cin>>name;
+cout<<"\nAddress:";
+cin>>address;
+cout<<"\nPhone number:";
+cin>>phoneno;
+cout<<"Room booked successfully!!!\n";
+}
+
+void checkout()
+{
+strcpy(status,"available");
+strcpy(name,"");
+strcpy(address,"");
+strcpy(phoneno,"");
+cout<<"\nChecked out successfully\n";
+}
+
+void edit()
+{
+cout<<"\nEnter Name:";
+cin>>name;
+cout<<"\nAddress:";
+cin>>address;
+cout<<"\nPhone number:";
+cin>>phoneno;
+cout<<"\nDetails edited successfully\n";
+}
+
+void sdetail()
+{
+cout<<"\nroomno="<<roomno;
+cout<<"\nName="<<name;
+cout<<"\nAddress="<<address;
+cout<<"\nPhone no="<<phoneno;
+}
+
+};
+
+
+int main()
+{
+clrscr();
+cout<<"\t\t\t\tNSN HOTEL\n";
+hotel h[6];
+int ch,no,i;
+char nm[10];
+for(i=0;i<3;i++)
+h[i].init1(i+1);
+for(i=3;i<6;i++)
+h[i].init2(i+1);
+while(1)
+{
+cout<<"\n1.Show available rooms\n2.Book a room\n3.Edit customer details\n4.Checkout of a room\n5.Show customer details staying in hotel\n6.exit\n";
+cin>>ch;
+switch(ch)
+{
+case 1: int cnt=0;
+	for(i=0;i<6;i++)
+	if(strcmp(h[i].status,"available")==0)
+	{
+	h[i].display();
+	cnt++;
+	}
+	if(cnt==0)
+	cout<<"Sorry no rooms available:(\n";
+	break;
+case 2: cout<<"Enter Room number you want to book\n";
+	cin>>no;
+	if(strcmp(h[no-1].status,"available")==0)
+	h[no-1].custdetails();
+	else
+	cout<<"Room is booked\n";
+	break;
+case 3:int ct=0;
+	cout<<"Enter name of Customer whose details you want to edit\n";
+	cin>>nm;
+	for(i=0;i<6;i++)
+	if(strcmp(h[i].name,nm)==0)
+	{
+	h[i].edit();
+	ct++;
+	}
+	if(ct==0)
+	cout<<"Record does not exist\n";
+	break;
+case 4: cout<<"Enter Room number from where you want to checkout\n";
+	cin>>no;
+	if(strcmp(h[no-1].status,"Booked")==0)
+	h[no-1].checkout();
+	else
+	cout<<"Room is already checkedout\n";
+	break;
+case 5:int c=0;
+	for(i=0;i<6;i++)
+	if(strcmp(h[i].status,"Booked")==0)
+	{
+	h[i].sdetail();
+	c++;
+	}
+	if(c==0)
+	cout<<"Hotel is empty:(\n";
+	break;
+case 6:exit(0);
+}
+}
+getch();
+return 0;
+}
